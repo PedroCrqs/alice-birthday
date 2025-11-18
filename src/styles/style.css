@@ -19,6 +19,7 @@ header {
 }
 
 p {
+  margin: 0;
   margin-left: 150px;
 }
 
@@ -50,5 +51,17 @@ p {
 }
 
 .colorContent {
+  color: rgb(255, 141, 161);
+  font-size: 30px;
+}
+
+#confirmation {
+  border-radius: 20px;
+  background-color: black;
   color: rgb(210, 173, 111);
+}
+
+#confirmation:hover {
+  background-color: rgb(210, 173, 111);
+  color: black;
 }
