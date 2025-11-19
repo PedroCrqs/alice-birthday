@@ -45,7 +45,7 @@ const listOfGuests = {
   "Erika Family": ["Erica Mattos", "Maria Eduarda Salles"],
 };
 
-console.log(guest);
+// Entrance logical
 
 const submitButton = document.getElementById("submitButton");
 
