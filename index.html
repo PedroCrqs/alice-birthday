@@ -5,15 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Convite especial!</title>
     <link rel="stylesheet" href="src/styles/style.css" />
-    <audio id="music" src="./src/assets/audio/alice_theme.mp3"></audio>
+    <audio
+      id="music"
+      src="./src/assets/audio/alice_theme.mp3"
+      autoplay
+      loop
+    ></audio>
   </head>
+
   <body>
-    <main class="invitation">
+    <section class="guestInputContainer" id="inputContainer">
+      <label for="guest" class="inputLabel">Digite seu nome:</label>
+      <br />
+      <input type="text" placeholder="Seu nome" id="guest" />
+      <br /><br />
+      <button type="submit" id="submitButton" class="buttonStyle">
+        Confirmar
+      </button>
+    </section>
+
+    <main id="inviteContainer" class="invitation displayOff">
       <header>
         <button id="musicToggleBtn" autoplay loop>
           <span>🎵</span>
         </button>
-        <h1>🎉 Você está <strong class="purple">convidado(a)</strong>! 🎉</h1>
+        <h1>
+          🎉 Olá, <strong class="purple" id="guestCall"></strong>! Você foi
+          convidado e sua presença é muito importante! 🎉
+        </h1>
       </header>
 
       <section class="info">
@@ -31,9 +50,12 @@
 
       <br />
       <section class="rsvp">
-        <button id="confirmation">Confirmar Presença</button>
+        <button id="confirmation" class="buttonStyle">
+          Confirmar Presença
+        </button>
       </section>
     </main>
+
     <script src="./src/scripts/script.js"></script>
   </body>
 </html>

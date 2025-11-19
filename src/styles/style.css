@@ -23,6 +23,10 @@ p {
   margin-left: 150px;
 }
 
+.displayOff {
+  display: none;
+}
+
 .info {
   text-align: center;
   margin-top: -25px;
@@ -49,7 +53,6 @@ p {
   justify-content: center;
   align-items: end;
   margin-left: 75px;
-  border-color: black;
 }
 
 .alice {
@@ -66,17 +69,35 @@ p {
   font-size: 30px;
 }
 
-#confirmation {
+.guestInputContainer {
+  position: fixed;
+  bottom: 48%;
+  left: 52%;
+}
+
+#guest {
+  width: 150px;
+}
+
+.inputLabel {
+  color: rgb(255, 141, 161);
   font-size: 30px;
-  border-radius: 20px;
-  background-color: black;
-  color: rgb(210, 173, 111);
+}
+
+#confirmation {
   display: flex;
   position: fixed;
   bottom: 50px;
 }
 
-#confirmation:hover {
-  background-color: rgb(210, 173, 111);
+.buttonStyle {
+  font-size: 30px;
+  border-radius: 20px;
+  background-color: black;
+  color: rgb(255, 141, 161);
+}
+
+.buttonStyle:hover {
+  background-color: rgb(255, 141, 161);
   color: black;
 }

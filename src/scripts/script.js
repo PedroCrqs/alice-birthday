@@ -1,3 +1,37 @@
+// Guest display
+
+let guest = "";
+const inviteContainer = document.getElementById("inviteContainer");
+const inputContainer = document.getElementById("inputContainer");
+const listOfGuests = {
+  "Alexandre Family": [
+    "Alexandre Cerqueira",
+    "Lisiane Moura",
+    "Bruna Lia Cerqueira",
+  ],
+  "Andrea Family": [
+    "Andrea Cerqueira",
+    "Marco Vidal",
+    "Beatriz Vidal",
+    "Neuza Pereira",
+  ],
+  "Gustavo Family": ["Gustavo Yssak", "Leticia Yssak"],
+  "Erika Family": ["Erica Mattos", "Maria Eduarda Salles"],
+};
+
+console.log(guest);
+
+const submitButton = document.getElementById("submitButton");
+
+submitButton.addEventListener("click", function () {
+  guest = document.getElementById("guest").value;
+  inputContainer.classList.toggle("displayOff");
+  inviteContainer.classList.toggle("displayOff");
+  document.getElementById("guestCall").innerText = guest;
+});
+
+// Birthday regressive count display
+
 const aliceBirthdayDate = new Date("2025-12-14 14:00:00").getTime();
 
 function actualizeCount() {
@@ -15,6 +49,8 @@ function actualizeCount() {
 const intervalID = setInterval(actualizeCount(), 1000);
 
 document.getElementById("daysLeft").innerText = actualizeCount();
+
+// Music display
 
 const audioPlayer = document.getElementById("music");
 const musicButton = document.getElementById("musicToggleBtn");
