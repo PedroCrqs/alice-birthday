@@ -42,8 +42,18 @@ const listOfGuests = {
     "Beatriz Vidal",
     "Neuza Pereira",
   ],
-  "Gustavo Family": ["Gustavo Yssak", "Leticia Yssak"],
-  "Erika Family": ["Erica Mattos", "Maria Eduarda Salles"],
+  "Gustavo Family": ["Gustavo Yssak", "Leticia Yssak", "Denise Yssak"],
+  "Erica Family": ["Erica Mattos", "Maria Eduarda Salles"],
+  "Erick family": [
+    "Erick Teixeira",
+    "Erika Teixeira",
+    "Vinicius Teixeira",
+    "Adriano",
+    "Gabriel Teixeira",
+    "Ana Paula Teixeira",
+  ],
+  "Phelippe family": ["Phelippe Toledo", "Janete Chaves", "Enrico Toledo"],
+  "Alan family": ["Alan Silva", "Erika Silva"],
 };
 
 // Elements
