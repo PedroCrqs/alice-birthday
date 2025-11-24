@@ -16,13 +16,36 @@
   <body>
     <section class="guestInputContainer" id="inputContainer">
       <h2 class="specialInvite">
-        Convite <strong class="alice">especial!</strong>!
+        Convite <strong class="alice">especial</strong>!!!
       </h2>
       <label for="guest" class="inputLabel">Digite seu nome para abrir:</label>
       <br />
       <input type="text" placeholder="Seu nome" id="guest" />
       <br /><br />
       <button type="submit" id="submitButton" class="buttonStyle">Abrir</button>
+    </section>
+
+    <section
+      class="guestSelectYourName guestInputContainer"
+      id="guestSelectName"
+    >
+      <label for="guestSelectName" class="inputLabel">Confirme seu nome:</label>
+      <br />
+      <select name="Convidados" id="guestSelectBox"></select>
+
+      <br /><br />
+      <button id="confirmSelectedName" class="buttonStyle">Confirmar</button>
+    </section>
+
+    <section
+      class="familyConfirmation displayOff guestInputContainer"
+      id="familyConfirmation"
+    >
+      <h3 class="inputLabel">Confirmar familiares:</h3>
+      <div id="familyList"></div>
+
+      <br />
+      <button id="sendConfirmation" class="buttonStyle">Confirmar</button>
     </section>
 
     <main id="inviteContainer" class="invitation displayOff">
