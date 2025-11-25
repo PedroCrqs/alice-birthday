@@ -197,7 +197,7 @@ sendBtn.addEventListener("click", () => {
   };
 
   // ATENÇÃO: SUBSTITUA PELA URL PÚBLICA DO SEU SERVIÇO NO RENDER
-  fetch("https://alice-birthday.onrender.com", {
+  fetch("https://alice-birthday.onrender.com/confirm", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
