@@ -59,8 +59,15 @@ const listOfGuests = {
     "Adriano",
     "Gabriel Teixeira",
     "Ana Paula Teixeira",
+    "Giovana Teixeira",
+    "Guilherme Teixeira",
   ],
-  "Phelippe family": ["Phelippe Toledo", "Janete Chaves", "Enrico Toledo"],
+  "Phelippe family": [
+    "Phelippe Toledo",
+    "Janete Chaves",
+    "Enrico Toledo",
+    "Regina Caetano",
+  ],
   "Alan family": ["Alan Silva", "Erika Silva"],
 };
 
