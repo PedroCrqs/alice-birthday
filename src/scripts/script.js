@@ -194,7 +194,7 @@ sendBtn.addEventListener("click", () => {
     timestamp: new Date().toISOString(),
   };
 
-  fetch("http://186.205.12.104:3000/confirm", {
+  fetch("https://alice-birthday.onrender.com", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
