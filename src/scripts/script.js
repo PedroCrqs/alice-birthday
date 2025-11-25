@@ -173,46 +173,40 @@ confirmButton.addEventListener("click", () => {
   familySection.classList.remove("displayOff");
 });
 
+// script.js (NOVO TRECHO para o sendBtn)
+
 const sendBtn = document.getElementById("sendConfirmation");
 
 sendBtn.addEventListener("click", () => {
-  // 'user' agora é a string completa do nome principal
   const user = window.selectedGuest;
-  const family = window.selectedFamily;
-  const boxes = document.querySelectorAll("#familyList input[type=checkbox]");
+  // family e mainGuest não são mais necessários no payload final
 
-  // O array 'confirmed' começa com a string completa do convidado principal.
-  const confirmed = [user];
+  const boxes = document.querySelectorAll("#familyList input[type=checkbox]");
+  let confirmed = [user]; // Usa 'let' para permitir a modificação
   boxes.forEach((box) => {
     if (box.checked) confirmed.push(box.value);
   });
 
+  // *** AÇÃO PRINCIPAL: ORDENAR ALFABETICAMENTE ***
+  confirmed.sort(); // Ordena a lista
+
   const payload = {
-    mainGuest: user,
-    familyName: family,
-    confirmedList: confirmed,
-    timestamp: new Date().toISOString(),
+    // Payload Simplificado:
+    ListaConfirmados: confirmed.join(", "), // Converte o array ordenado para uma string
+    Timestamp: new Date().toISOString(),
   };
 
+  // ATENÇÃO: SUBSTITUA PELA URL PÚBLICA DO SEU SERVIÇO NO RENDER
   fetch("https://alice-birthday.onrender.com", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   })
-    .then((r) => {
-      if (!r.ok) {
-        throw new Error("Server error");
-      }
-      return r.text();
-    })
-    .then((msg) => alert("Confirmação enviada com sucesso!"))
-    .catch((err) => {
-      console.error(err);
-      alert(
-        "Erro ao enviar confirmação. Verifique o console ou se o servidor Node.js está rodando."
-      );
-    });
+    .then((r) => r.text())
+    .then((msg) => alert("Confirmação enviada!"))
+    .catch((err) => alert("Erro ao enviar confirmação"));
 });
+
 // Regressive count
 
 const aliceBirthdayDate = new Date("2025-12-14 14:00:00").getTime();
