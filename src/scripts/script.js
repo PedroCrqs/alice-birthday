@@ -103,6 +103,7 @@ const listOfGuests = {
 const inputContainer = document.getElementById("inputContainer");
 const guestSelectContainer = document.getElementById("guestSelectName");
 const inviteContainer = document.getElementById("inviteContainer");
+const familySection = document.getElementById("familyConfirmation");
 
 guestSelectContainer.classList.add("displayOff");
 
@@ -169,7 +170,6 @@ confirmSelectedNameBtn.addEventListener("click", () => {
 const confirmButton = document.getElementById("confirmation");
 
 confirmButton.addEventListener("click", () => {
-  const familySection = document.getElementById("familyConfirmation");
   const familyListDiv = document.getElementById("familyList");
 
   const family = window.selectedFamily;
