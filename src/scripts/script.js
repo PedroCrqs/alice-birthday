@@ -194,14 +194,14 @@ sendBtn.addEventListener("click", () => {
     timestamp: new Date().toISOString(),
   };
 
-  fetch("http://localhost:3000/confirm", {
+  fetch("http://186.205.12.104:3000/confirm", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   })
     .then((r) => {
       if (!r.ok) {
-        throw new Error("Resposta do servidor não foi OK");
+        throw new Error("Server error");
       }
       return r.text();
     })
@@ -213,7 +213,6 @@ sendBtn.addEventListener("click", () => {
       );
     });
 });
-
 // Regressive count
 
 const aliceBirthdayDate = new Date("2025-12-14 14:00:00").getTime();
