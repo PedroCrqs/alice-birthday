@@ -1,6 +1,7 @@
 import { $audioPlayer, $musicButton, $iconSpan } from "../utils/dom.js";
 
 let isPlaying = true;
+let musicInitialized;
 
 const toggleMusic = () => {
   if (!$audioPlayer || !$iconSpan) return;
@@ -23,7 +24,8 @@ const toggleMusic = () => {
 };
 
 export function initMusic() {
-  if ($musicButton) {
-    $musicButton.addEventListener("click", toggleMusic);
-  }
+  if (musicInitialized || !$musicButton) return;
+
+  $musicButton.addEventListener("click", toggleMusic);
+  musicInitialized = true;
 }

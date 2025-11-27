@@ -1,6 +1,7 @@
 import { $daysLeft } from "../utils/dom.js";
 
 const ALICE_BIRTHDAY_DATE = new Date("2025-12-14 14:00:00").getTime();
+let countdownInterval = null;
 
 function actualizeCount() {
   const now = Date.now();
@@ -17,6 +18,15 @@ function actualizeCount() {
 }
 
 export function initCountdown() {
+  if (countdownInterval) clearInterval(countdownInterval);
+
   actualizeCount();
-  setInterval(actualizeCount, 1000 * 60 * 60);
+  countdownInterval = setInterval(actualizeCount, 1000 * 60 * 60);
+}
+
+export function stopCountdown() {
+  if (countdownInterval) {
+    clearInterval(countdownInterval);
+    countdownInterval = null;
+  }
 }

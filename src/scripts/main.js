@@ -19,15 +19,36 @@ import { listOfGuests, RENDER_URL, normalizeString } from "./utils/data.js";
 import { initMusic } from "./modules/music.js";
 import { initCountdown } from "./modules/countdown.js";
 
-/**
- * @param {string} guestName
- */
+const appState = {
+  selectedGuest: null,
+  selectedFamily: null,
+};
+
+const CONFIG = {
+  MESSAGES: {
+    NAME_NOT_FOUND: "Nome não encontrado. Verifique se digitou corretamente!",
+    EMPTY_INPUT: "Por favor, digite um nome para buscar.",
+    WAIT_CONFIRMATION: "Aguarde enquanto enviamos sua confirmação...",
+    SUCCESS: "Confirmação enviada com sucesso!",
+    ERROR: "Erro ao enviar confirmação. Tente novamente.",
+  },
+};
+
+function showNotification(message, type = "info") {
+  alert(message);
+  console.log(`[${type.toUpperCase()}]`, message);
+}
 
 function searchGuest() {
   const typedName = normalizeString($guestInput.value.trim());
-  const filteredResults = [];
 
-  if (!typedName) return;
+  // ✅ Validação com feedback
+  if (!typedName) {
+    showNotification(CONFIG.MESSAGES.EMPTY_INPUT, "warning");
+    return;
+  }
+
+  const filteredResults = [];
 
   for (const family in listOfGuests) {
     listOfGuests[family].forEach((person) => {
@@ -36,16 +57,21 @@ function searchGuest() {
       }
     });
   }
+
   if (filteredResults.length === 0) {
-    alert("Nome não encontrado. Verifique se digitou corretamente!");
+    showNotification(CONFIG.MESSAGES.NAME_NOT_FOUND, "error");
     return;
   }
 
   hide($inputContainer);
   show($guestSelectContainer);
 
+  renderGuestOptions(filteredResults);
+}
+
+function renderGuestOptions(results) {
   $guestSelectBox.innerHTML = "";
-  filteredResults.forEach((result) => {
+  results.forEach((result) => {
     const option = document.createElement("option");
     option.value = JSON.stringify(result);
     option.textContent = result.name;
@@ -55,110 +81,93 @@ function searchGuest() {
 
 function confirmSelectedGuest() {
   const selectedGuest = JSON.parse($guestSelectBox.value);
-  const userName = selectedGuest.name;
-  const userFamily = selectedGuest.family;
 
-  $guestCall.innerText = userName.split(" ")[0];
+  appState.selectedGuest = selectedGuest.name;
+  appState.selectedFamily = selectedGuest.family;
+
+  $guestCall.innerText = selectedGuest.name.split(" ")[0];
 
   hide($guestSelectContainer);
   show($inviteContainer);
   initMusic();
-
-  window.selectedGuest = userName;
-  window.selectedFamily = userFamily;
 }
 
 function confirmPresence() {
-  const family = window.selectedFamily;
-  const mainGuest = window.selectedGuest;
-  const familyMembers = listOfGuests[family];
-
-  console.log(familyMembers);
+  const familyMembers = listOfGuests[appState.selectedFamily];
 
   if (familyMembers.length > 1) {
-    const familyWithNoGuest = familyMembers.filter(
-      (person) => person !== mainGuest
-    );
-
-    hide($inviteContainer);
-
-    $familyListDiv.innerHTML = "";
-
-    familyWithNoGuest.forEach((person) => {
-      const id = `fam_${person.replace(/\s+/g, "_")}`;
-
-      const box = `
-      <label>
-        <input type="checkbox" value="${person}" id="${id}">
-        ${person}
-      </label><br>
-    `;
-
-      $familyListDiv.insertAdjacentHTML("beforeend", box);
-    });
-
+    renderFamilySelection(familyMembers);
     hide($inviteContainer);
     show($familySection);
   } else {
-    alert("Aguarde 10 segundos até que a confirmação seja enviada!");
-
-    const user = window.selectedGuest;
-    const boxes = document.querySelectorAll("#familyList input[type=checkbox]");
-    let confirmed = [user];
-
-    boxes.forEach((box) => {
-      if (box.checked) confirmed.push(box.value);
-    });
-
-    const payload = {
-      ListaConfirmados: confirmed.join(", "),
-      Timestamp: new Date().toISOString(),
-    };
-
-    fetch(RENDER_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    })
-      .then((r) => r.text())
-      .then((msg) => {
-        alert("Confirmação enviada!");
-        hide($inviteContainer);
-        show($confirmationSuccessfull);
-      })
-      .catch((err) => alert("Erro ao enviar confirmação"));
+    // Convidado único
+    sendConfirmation([appState.selectedGuest]);
   }
 }
 
-function confirmFamilyPresence() {
-  const user = window.selectedGuest;
-  const boxes = document.querySelectorAll("#familyList input[type=checkbox]");
-  let confirmed = [user];
+function renderFamilySelection(familyMembers) {
+  const familyWithNoGuest = familyMembers.filter(
+    (person) => person !== appState.selectedGuest
+  );
 
-  alert("Aguarde 10 segundos até que a confirmação seja enviada!");
+  $familyListDiv.innerHTML = "";
+
+  familyWithNoGuest.forEach((person) => {
+    const id = `fam_${person.replace(/\s+/g, "_")}`;
+    const label = document.createElement("label");
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.value = person;
+    checkbox.id = id;
+
+    label.appendChild(checkbox);
+    label.appendChild(document.createTextNode(` ${person}`));
+    label.appendChild(document.createElement("br"));
+
+    $familyListDiv.appendChild(label);
+  });
+}
+
+function confirmFamilyPresence() {
+  const boxes = document.querySelectorAll("#familyList input[type=checkbox]");
+  const confirmed = [appState.selectedGuest];
 
   boxes.forEach((box) => {
     if (box.checked) confirmed.push(box.value);
   });
-  confirmed.sort();
+
+  sendConfirmation(confirmed);
+}
+
+async function sendConfirmation(confirmedGuests) {
+  showNotification(CONFIG.MESSAGES.WAIT_CONFIRMATION, "info");
 
   const payload = {
-    ListaConfirmados: confirmed.join(", "),
+    ListaConfirmados: confirmedGuests.sort().join(", "),
     Timestamp: new Date().toISOString(),
   };
 
-  fetch(RENDER_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  })
-    .then((r) => r.text())
-    .then((msg) => {
-      alert("Confirmação enviada!");
-      hide($familySection);
-      show($confirmationSuccessfull);
-    })
-    .catch((err) => alert("Erro ao enviar confirmação"));
+  try {
+    const response = await fetch(RENDER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    await response.text();
+
+    showNotification(CONFIG.MESSAGES.SUCCESS, "success");
+    hide($inviteContainer);
+    hide($familySection);
+    show($confirmationSuccessfull);
+  } catch (error) {
+    console.error("Erro ao enviar confirmação:", error);
+    showNotification(CONFIG.MESSAGES.ERROR, "error");
+  }
 }
 
 function returnButton() {
@@ -167,10 +176,15 @@ function returnButton() {
   hide($confirmButton);
 }
 
+// Event listeners
 $submitButton.addEventListener("click", searchGuest);
 $confirmSelectedNameBtn.addEventListener("click", confirmSelectedGuest);
 $confirmButton.addEventListener("click", confirmPresence);
 $sendBtn.addEventListener("click", confirmFamilyPresence);
 $returnButton.addEventListener("click", returnButton);
+
+$guestInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") searchGuest();
+});
 
 initCountdown();
