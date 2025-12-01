@@ -38,7 +38,8 @@ export const listOfGuests = {
     "Ana Paula Teixeira*",
     "Giovana Teixeira",
     "Guilherme Teixeira",
-    "Júlia Teixeira",
+    "Júlia Teixeira*",
+    "Monique",
   ],
   "Phelippe family": [
     "Phelippe Toledo",
