@@ -40,6 +40,7 @@ export const listOfGuests = {
     "Guilherme Teixeira",
     "Júlia Teixeira*",
     "Monique",
+    "Matheus Monteiro",
   ],
   "Phelippe family": [
     "Phelippe Toledo",
