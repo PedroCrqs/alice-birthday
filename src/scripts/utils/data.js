@@ -86,6 +86,14 @@ export const listOfGuests = {
   ],
   "Jorgete family": ["Jorgete Moraes", "Fernando Moraes"],
   "Yasmin family": ["Yasmin Moraes"],
+  "Sandro family": ["Sandro Moraes"],
+  "Eli family": ["Eli Neto"],
+  "Telma family": [
+    "Telma Castro",
+    "Selma Castro",
+    "Pedro Yuri Nogueira",
+    "Pamela Castro",
+  ],
 };
 
 export const RENDER_URL = "https://alice-birthday.onrender.com/confirm";

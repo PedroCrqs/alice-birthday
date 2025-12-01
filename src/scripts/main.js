@@ -140,9 +140,21 @@ function confirmFamilyPresence() {
 async function sendConfirmation(confirmedGuests) {
   showNotification(CONFIG.MESSAGES.WAIT_CONFIRMATION, "info");
 
+  const now = new Date();
+
+  const pad = (num) => (num < 10 ? "0" + num : num);
+
+  const day = pad(now.getDate());
+  const month = pad(now.getMonth() + 1);
+  const year = now.getFullYear();
+  const hours = pad(now.getHours());
+  const minutes = pad(now.getMinutes());
+
+  const formattedTimestamp = `${day}/${month}/${year}, ${hours}:${minutes}`;
+
   const payload = {
     ListaConfirmados: confirmedGuests.sort().join(", "),
-    Timestamp: new Date().toISOString(),
+    Timestamp: formattedTimestamp,
   };
 
   try {

@@ -30,20 +30,24 @@ p {
 .emphasisText {
   color: rgb(255, 141, 161);
   font-size: 30px;
+  text-shadow: 1px 1px 4px black;
 }
 
 .emphasisWord {
   color: rgb(248, 178, 293);
   font-size: 40px;
+  text-shadow: 1px 1px 4px black;
 }
 
 .emphasisWord2 {
   color: rgb(180, 146, 160);
+  text-shadow: 1px 1px 3px black;
 }
 
 .emphasisWord3 {
   color: rgb(255, 141, 161);
   font-size: 30px;
+  text-shadow: 1px 1px 4px black;
 }
 
 .mainContainer {
