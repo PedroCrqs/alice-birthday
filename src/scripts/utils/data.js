@@ -38,6 +38,7 @@ export const listOfGuests = {
     "Ana Paula Teixeira*",
     "Giovana Teixeira",
     "Guilherme Teixeira",
+    "Júlia Teixeira",
   ],
   "Phelippe family": [
     "Phelippe Toledo",
@@ -85,7 +86,7 @@ export const listOfGuests = {
     "Arthur Duarte*",
   ],
   "Jorgete family": ["Jorgete Moraes", "Fernando Moraes"],
-  "Yasmin family": ["Yasmin Moraes"],
+  "Yasmim family": ["Yasmim Silva", "Ivan Silva"],
   "Sandro family": ["Sandro Moraes"],
   "Eli family": ["Eli Neto"],
   "Telma family": [
