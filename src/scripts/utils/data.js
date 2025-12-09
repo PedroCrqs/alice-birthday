@@ -101,7 +101,7 @@ export const listOfGuests = {
   "Juliana family": ["Juliana Branco", "Reynaldo"],
 };
 
-export const RENDER_URL = "https://alice-birthday-ebon.vercel.app/confirm";
+export const RENDER_URL = "https://alice-birthday-ebon.vercel.app/";
 
 /**
  * @param {string} text
