@@ -101,7 +101,7 @@ export const listOfGuests = {
   "Juliana family": ["Juliana Branco", "Reynaldo"],
 };
 
-export const RENDER_URL = "https://alice-birthday.onrender.com";
+export const RENDER_URL = "https://alice-birthday.onrender.com/confirm";
 
 /**
  * @param {string} text
